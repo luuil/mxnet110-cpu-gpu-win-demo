@@ -31,8 +31,16 @@
 *.out
 *.app
 
+# Tar balls
+*.tar.gz
+*.zip
+
 # builds
 build*
 
-# others
-mxnet
+# data-mnist
+*.idx3-ubyte
+*.idx1-ubyte
+
+# mxnet model
+*.params

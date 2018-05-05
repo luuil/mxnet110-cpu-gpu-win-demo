@@ -1,4 +1,4 @@
-set(example_SRC_DIR "${hycvmxnet_SRC_DIR}/src/example")
+set(example_SRC_DIR "${proj_SRC_DIR}/src/example")
 
 set(third_party_DLLS
     "${third_party_BIN_DIR}/openblas64_0219/libquadmath-0.dll"
@@ -26,14 +26,20 @@ target_link_libraries(mlp_gpu ${third_party_LIBRARIES})
 copy_files_if_different(mlp_gpu third_party_DLLS)
 copy_rename_file_if_different(mlp_gpu "${third_party_BIN_DIR}/mxnet64_110/libmxnet-gpu110.dll" "libmxnet.dll")
 
+add_executable(lenet_with_mxdataiter ${example_SRC_DIR}/lenet_with_mxdataiter.cpp)
+target_link_libraries(lenet_with_mxdataiter ${third_party_LIBRARIES})
+copy_files_if_different(lenet_with_mxdataiter third_party_DLLS)
+copy_rename_file_if_different(lenet_with_mxdataiter "${third_party_BIN_DIR}/mxnet64_110/libmxnet-gpu110.dll" "libmxnet.dll")
+
+add_executable(image-classification-predict ${example_SRC_DIR}/image-classification-predict.cc)
+target_link_libraries(image-classification-predict ${third_party_LIBRARIES})
+copy_files_if_different(image-classification-predict third_party_DLLS)
+copy_rename_file_if_different(image-classification-predict "${third_party_BIN_DIR}/mxnet64_110/libmxnet-gpu110.dll" "libmxnet.dll")
+
 # add_executable(lenet ${example_SRC_DIR}/lenet.cpp)
 # target_link_libraries(lenet ${third_party_LIBRARIES})
 # copy_files_if_different(lenet third_party_DLLS)
 # copy_rename_file_if_different(lenet "${third_party_BIN_DIR}/mxnet/libmxnet-gpu110.dll" "libmxnet.dll")
-
-# add_executable(lenet_with_mxdataiter lenet_with_mxdataiter.cpp ${CPP_PACKAGE_HEADERS})
-# target_link_libraries(lenet_with_mxdataiter ${CPP_EXAMPLE_LIBS})
-# add_dependencies(lenet_with_mxdataiter ${CPPEX_DEPS})
 
 # add_executable(alexnet alexnet.cpp ${CPP_PACKAGE_HEADERS})
 # target_link_libraries(alexnet ${CPP_EXAMPLE_LIBS})

@@ -181,19 +181,21 @@ void PrintOutputResult(const std::vector<float>& data, const std::vector<std::st
 }
 
 int main(int argc, char* argv[]) {
+	std::string pimg = "../../data/image/apple.jpg";
 	if (argc < 2) {
-		std::cout << "No test image here." << std::endl
-			<< "Usage: ./image-classification-predict apple.jpg" << std::endl;
-		return EXIT_FAILURE;
+		std::cout << "Use the default image. Or you can use it like:" << std::endl
+			<< "\tUsage: ./image-classification-predict apple.jpg\n" << std::endl;
+	} else {
+		pimg = std::string(argv[1]);
 	}
 
-	std::string test_file(argv[1]);
+	std::string test_file(pimg.c_str());
 
 	// Models path for your model, you have to modify it
-	std::string json_file = "D:/hycv_mxnet/data/Inception/Inception_BN-symbol.json";
-	std::string param_file = "D:/hycv_mxnet/data/Inception/Inception_BN-0039.params";
-	std::string synset_file = "D:/hycv_mxnet/data/Inception/synset.txt";
-	std::string nd_file = "D:/hycv_mxnet/data/Inception/mean_224.nd";
+	std::string json_file = "../../model/resnet18/resnet-18-symbol.json";
+	std::string param_file = "../../model/resnet18/resnet-18-0000.params";
+	std::string synset_file = "../../model/resnet18/synset.txt";
+	std::string nd_file = "../../model/resnet18/mean_224.nd";
 
 	BufferFile json_data(json_file);
 	BufferFile param_data(param_file);

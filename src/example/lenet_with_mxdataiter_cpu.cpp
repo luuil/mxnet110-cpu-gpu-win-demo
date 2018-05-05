@@ -69,7 +69,7 @@ int main(int argc, char const *argv[]) {
   /*setup basic configs*/
   int W = 28;
   int H = 28;
-  int batch_size = 128;
+  int batch_size = 8;
   int max_epoch = 100;
   float learning_rate = 1e-4;
   float weight_decay = 1e-4;
@@ -77,25 +77,25 @@ int main(int argc, char const *argv[]) {
   auto lenet = LenetSymbol();
   std::map<string, NDArray> args_map;
 
-  args_map["data"] = NDArray(Shape(batch_size, 1, W, H), Context::gpu());
-  args_map["data_label"] = NDArray(Shape(batch_size), Context::gpu());
-  lenet.InferArgsMap(Context::gpu(), &args_map, args_map);
+  args_map["data"] = NDArray(Shape(batch_size, 1, W, H), Context::cpu());
+  args_map["data_label"] = NDArray(Shape(batch_size), Context::cpu());
+  lenet.InferArgsMap(Context::cpu(), &args_map, args_map);
 
-  args_map["fc1_w"] = NDArray(Shape(500, 4 * 4 * 50), Context::gpu());
+  args_map["fc1_w"] = NDArray(Shape(500, 4 * 4 * 50), Context::cpu());
   NDArray::SampleGaussian(0, 1, &args_map["fc1_w"]);
-  args_map["fc2_b"] = NDArray(Shape(10), Context::gpu());
+  args_map["fc2_b"] = NDArray(Shape(10), Context::cpu());
   args_map["fc2_b"] = 0;
 
   auto train_iter = MXDataIter("MNISTIter")
-      .SetParam("image", "../../data/mnist_data/train-images.idx3-ubyte")
-      .SetParam("label", "../../data/mnist_data/train-labels.idx1-ubyte")
+      .SetParam("image", "D:/hycv_mxnet/data/mnist_data/train-images.idx3-ubyte")
+      .SetParam("label", "D:/hycv_mxnet/data/mnist_data/train-labels.idx1-ubyte")
       .SetParam("batch_size", batch_size)
       .SetParam("shuffle", 1)
       .SetParam("flat", 0)
       .CreateDataIter();
   auto val_iter = MXDataIter("MNISTIter")
-      .SetParam("image", "../../data/mnist_data/t10k-images.idx3-ubyte")
-      .SetParam("label", "../../data/mnist_data/t10k-labels.idx1-ubyte")
+      .SetParam("image", "D:/hycv_mxnet/data/mnist_data/t10k-images.idx3-ubyte")
+      .SetParam("label", "D:/hycv_mxnet/data/mnist_data/t10k-labels.idx1-ubyte")
       .CreateDataIter();
 
   Optimizer* opt = OptimizerRegistry::Find("ccsgd");
@@ -106,7 +106,7 @@ int main(int argc, char const *argv[]) {
      ->SetParam("wd", weight_decay);
 
 
-  auto *exec = lenet.SimpleBind(Context::gpu(), args_map);
+  auto *exec = lenet.SimpleBind(Context::cpu(), args_map);
   auto arg_names = lenet.ListArguments();
 
   // Create metrics

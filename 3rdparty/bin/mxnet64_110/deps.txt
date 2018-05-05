@@ -1,0 +1,27 @@
+Dump of file libmxnet-gpu110.dll
+
+File Type: DLL
+
+  Image has the following dependencies:
+
+    libopenblas.dll
+    opencv_world341.dll
+    cublas64_80.dll
+    cufft64_80.dll
+    cusolver64_80.dll
+    curand64_80.dll
+    nvrtc64_80.dll
+    nvcuda.dll
+    KERNEL32.dll
+    VCOMP140.DLL
+
+
+
+Dump of file libmxnet-cpu110.dll
+
+File Type: DLL
+
+  Image has the following dependencies:
+
+    libopenblas.dll
+    KERNEL32.dll

@@ -6,19 +6,19 @@ if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
 endif()
 
 cmake_minimum_required(VERSION 3.10.0 FATAL_ERROR)
-project(hycvmxnet VERSION 0.1.0 LANGUAGES C CXX)
+project(mxnet_win_demo VERSION 0.1.0 LANGUAGES C CXX)
 
-option(USE_CUDA "Build with CUDA support" OFF)
+option(USE_CUDA "Build with CUDA support" ON)
 
 # Actual source dir is ..
-get_filename_component(hycvmxnet_SRC_DIR ${hycvmxnet_SOURCE_DIR} DIRECTORY)
+get_filename_component(proj_SRC_DIR ${mxnet_win_demo_SOURCE_DIR} DIRECTORY)
 
-set(third_party_BIN_DIR "${hycvmxnet_SRC_DIR}/3rdparty/bin")
-set(third_party_LIB_DIR "${hycvmxnet_SRC_DIR}/3rdparty/lib")
+set(third_party_BIN_DIR "${proj_SRC_DIR}/3rdparty/bin")
+set(third_party_LIB_DIR "${proj_SRC_DIR}/3rdparty/lib")
 
 include_directories(
-    "${hycvmxnet_SRC_DIR}/3rdparty/include"
-    "${hycvmxnet_SRC_DIR}/src"
+    "${proj_SRC_DIR}/3rdparty/include"
+    "${proj_SRC_DIR}/src"
     )
 
 include(util.cmake)

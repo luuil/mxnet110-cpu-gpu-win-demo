@@ -10,11 +10,12 @@ This repo shows how to use mxnet cpp api on windows.
 ### Build
 
 ```bash
-cd cmake
 mkdir build
 cd build
-cmake ..
+cmake -G "Visual Studio 15 2017 Win64" ../cmake
 ```
+
+Then, open with vs2017, and **set configuration to `Release`** or it will link failed(because the opencv is Release version).
 
 ### Pre-build binaries or other files
 

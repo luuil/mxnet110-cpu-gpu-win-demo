@@ -1,4 +1,4 @@
-set(example_SRC_DIR "${hycvmxnet_SRC_DIR}/src/example")
+set(example_SRC_DIR "${proj_SRC_DIR}/src/example")
 
 set(third_party_DLLS
     "${third_party_BIN_DIR}/openblas64_0219/libquadmath-0.dll"
@@ -16,9 +16,10 @@ target_link_libraries(mlp_cpu ${third_party_LIBRARIES})
 copy_files_if_different(mlp_cpu third_party_DLLS)
 copy_rename_file_if_different(mlp_cpu "${third_party_BIN_DIR}/mxnet64_110/libmxnet-cpu110.dll" "libmxnet.dll")
 
-# add_executable(lenet_with_mxdataiter lenet_with_mxdataiter.cpp ${CPP_PACKAGE_HEADERS})
-# target_link_libraries(lenet_with_mxdataiter ${CPP_EXAMPLE_LIBS})
-# add_dependencies(lenet_with_mxdataiter ${CPPEX_DEPS})
+add_executable(lenet_with_mxdataiter_cpu ${example_SRC_DIR}/lenet_with_mxdataiter_cpu.cpp)
+target_link_libraries(lenet_with_mxdataiter_cpu ${third_party_LIBRARIES})
+copy_files_if_different(lenet_with_mxdataiter_cpu third_party_DLLS)
+copy_rename_file_if_different(lenet_with_mxdataiter_cpu "${third_party_BIN_DIR}/mxnet64_110/libmxnet-cpu110.dll" "libmxnet.dll")
 
 # add_executable(alexnet alexnet.cpp ${CPP_PACKAGE_HEADERS})
 # target_link_libraries(alexnet ${CPP_EXAMPLE_LIBS})
